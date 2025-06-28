@@ -31,7 +31,8 @@ public class Generator {
                 new Transaction("gf-1", "Automat 1", -1.8),
                 new Transaction("bs-1", "Essensausgabe", -2.5),
                 new Transaction("bs-1", "Kaffe", -1.8),
-                new Transaction("bs-1", "Aufwerter", 5)
+                new Transaction("bs-1", "Aufwerter", 5),
+                new Transaction("mb-1", "Pfandrückgabe", .15)
         );
 
         transactions.forEach(createRecords(Configurator.TRANSACTIONS, Transaction::getWallet));

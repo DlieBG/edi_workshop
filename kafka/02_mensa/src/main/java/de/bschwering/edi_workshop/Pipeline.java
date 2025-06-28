@@ -31,6 +31,26 @@ public class Pipeline {
         // Für jede neue Transaktion soll der Guthabenstand des Wallets geupdated werden.
         // Es soll eine Fehlermeldung ausgegeben werden, wenn der Guthabenstand negativ wird.
 
+        var transactions = builder.stream(Configurator.TRANSACTIONS, Consumed.with(Serdes.String(), JsonSerdes.transactionSerde()));
+        var wallets = builder.table(Configurator.WALLETS, Consumed.with(Serdes.String(), JsonSerdes.walletSerde()));
+
+        transactions.join(
+                wallets,
+                (transaction, wallet) -> {
+                    wallet.setBalance(
+                            wallet.getBalance()
+                            + transaction.getAmount()
+                    );
+
+                    if (wallet.getBalance() < 0)
+                        System.out.println("Student (" + wallet.getName() + "), du hast kein Geld: " + wallet.getBalance());
+
+                    System.out.println("Student (" + wallet.getName() + "), neue Transaktion: " + transaction.getAmount() + " und Kontostand: " + wallet.getBalance());
+
+                    return wallet;
+                }
+        ).to(Configurator.WALLETS, Produced.with(Serdes.String(), JsonSerdes.walletSerde()));
+
         var build = builder.build();
 
         // -----------------------------------------------------------------------------------------------
