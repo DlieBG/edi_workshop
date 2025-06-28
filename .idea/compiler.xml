@@ -8,7 +8,6 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="/var/home/bschwering/.m2/repository/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
-          <entry name="/var/home/bschwering/.m2/repository/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
         </processorPath>
         <module name="edi-workshop" />
       </profile>
